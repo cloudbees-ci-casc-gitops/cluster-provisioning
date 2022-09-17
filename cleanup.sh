@@ -48,6 +48,6 @@ kubectl delete namespace controllers
 echo "deleting $NAMESPACE namespace"
 kubectl delete namespace $NAMESPACE
 echo "deleting cluster"
-gcloud container clusters delete $CLUSTER_NAME --quiet --project $PROJECT_ID
+gcloud container clusters delete $CLUSTER_NAME --quiet --project $PROJECT_ID --region us-east1
 echo "deleting dns record for $CBCI_HOSTNAME"
 gcloud dns record-sets delete $CBCI_HOSTNAME. --type=A --zone=$DNS_ZONE --project $PROJECT_ID
