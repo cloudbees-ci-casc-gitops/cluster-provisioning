@@ -8,7 +8,6 @@ resources:
 - resources/network/controller-cjoc-ingress.yaml
 - resources/network/deny-all-ingress.yml
 - resources/cbci-mc-secret-provider.yml
-- resources/controller-secrets-pod.yaml
 - resources/controller-limit-range.yaml
 - resources/controller-resource-quota.yaml
 - resources/cbci-ops-agent-role-binding.yaml
