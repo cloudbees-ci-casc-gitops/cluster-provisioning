@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+configMapGenerator:
+- name: cbci-oc-init-groovy
+  files:
+    - config/init_groovy/09-license-activate.groovy
+- name: cbci-oc-quickstart-groovy
+  files:
+    - config/groovy-quickstart/04-create-admin-jenkins-token.groovy
+    - config/groovy-quickstart/07-create-k8s-shared-cloud.groovy
+- name: oc-casc-bundle
+  files:
+    - casc/oc/bundle.yaml
+    - casc/oc/jenkins.yaml
+    - casc/oc/rbac.yaml
+    - casc/oc/plugins.yaml
+    - casc/oc/items.yaml
+patches:
+- path: patches/jcasc-bundles-store-dynamic-pvc-patch.yaml
+  target:
+    kind: StatefulSet
+resources:
+  - resources/network/cert-manager-allow-all.yaml
+  - resources/network/allow-ingress-nginx.yml
+  - resources/network/cjoc-controller-ingress.yaml
+  - resources/network/controller-cjoc-ingress.yaml
+  - resources/network/deny-all-ingress.yml
+  - resources/cluster-issuers.yml
+  - resources/regional-pd-ssd.yaml
+  - resources/cbci-cjoc-secret-provider.yml
+  - resources/cbci-ops-secret-provider.yml
+  - chart.yaml
+transformers:
+  - transformers/pod-labels.yaml

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: controller-cjoc-ingress
+  namespace: cbci
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          jenkins: agent
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: cbci
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/instance: cbci
+    ports:
+    - port: http
+      protocol: TCP
+  - from:
+    - podSelector:
+        matchLabels:
+          jenkins: agent
+    ports:
+    - port: jnlp
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      com.cloudbees.cje.type: master

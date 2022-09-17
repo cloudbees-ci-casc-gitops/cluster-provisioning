@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: cbci
+    app.kubernetes.io/name: cloudbees-core
+  name: controller-cjoc-ingress
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: "managed-master-hibernation-monitor"
+    - podSelector:
+        matchLabels:
+          jenkins: agent
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: cbci
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/instance: cbci
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: cbci
+      podSelector:
+        matchLabels:
+          cloudbees.com/master: operations-ops
+    ports:
+    - port: http
+      protocol: TCP
+  - from:
+    - podSelector:
+        matchLabels:
+          jenkins: agent
+    ports:
+    - port: jnlp
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      com.cloudbees.cje.type: master

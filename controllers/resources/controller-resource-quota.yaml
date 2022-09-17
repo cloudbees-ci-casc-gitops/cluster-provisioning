@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: controller-resource-quota
+spec:
+  hard:
+    requests.cpu: "400"
+    requests.memory: 600Gi
+    limits.cpu: "500"
+    limits.memory: 800Gi

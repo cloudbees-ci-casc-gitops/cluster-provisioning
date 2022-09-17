@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: smee-allow-ingress-nginx
+  namespace: cbci
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: smee
+  policyTypes:
+   - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: ingress-nginx
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: controller
+          app.kubernetes.io/name: ingress-nginx
+    ports:
+    - port: http
+      protocol: TCP
