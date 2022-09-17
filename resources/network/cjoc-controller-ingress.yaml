@@ -8,7 +8,7 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-          com.cloudbees.cje.type: master
+          tenant: operations-ops
     - podSelector:
         matchLabels:
           tenant: operations-ops
@@ -27,4 +27,3 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/component: cjoc
-      app.kubernetes.io/instance: cbci
