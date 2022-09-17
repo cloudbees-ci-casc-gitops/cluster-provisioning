@@ -37,7 +37,7 @@ echo "HOST_PREFIX = $HOST_PREFIX"
 # CBCI_HOSTNAME="staging-casc-gitops.cloudbees-ci.cb-sa.io"
 # PROD CBCI_HOSTNAME="casc-gitops.cloudbees-ci.cb-sa.io"
 CBCI_HOSTNAME="${HOST_PREFIX}casc-gitops.cloudbees-ci.cb-sa.io"
-DNS_ZONE=workshop-cb-sa
+DNS_ZONE=cloudbees-ci-cb-sa
 
 echo "CBCI_HOSTNAME = $CBCI_HOSTNAME"
 
