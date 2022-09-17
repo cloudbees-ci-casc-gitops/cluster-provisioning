@@ -42,6 +42,7 @@ DNS_ZONE=cloudbees-ci-cb-sa
 echo "CBCI_HOSTNAME = $CBCI_HOSTNAME"
 
 gcloud config set project $PROJECT_ID
+echo "creating cluster"
 gcloud beta container --project "${PROJECT_ID}" clusters create $CLUSTER_NAME \
   --region "us-east1" --no-enable-basic-auth --release-channel "regular" \
   --machine-type "n1-standard-8" --image-type "COS_CONTAINERD" --disk-type "pd-ssd" --disk-size "40" \
