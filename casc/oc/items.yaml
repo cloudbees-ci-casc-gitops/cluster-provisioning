@@ -3,6 +3,14 @@ removeStrategy:
   items: NONE
 items:
 - kind: folder
+  name: controllers
+  properties:
+  - itemRestrictions:
+      filter: true
+      allowedTypes:
+      - com.cloudbees.opscenter.server.model.ManagedMaster
+      - com.cloudbees.hudson.plugins.folder.Folder
+- kind: folder
   displayName: operations
   name: operations
   filteredRoles:
