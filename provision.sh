@@ -99,21 +99,12 @@ gcloud iam service-accounts add-iam-policy-binding \
   --member "serviceAccount:${PROJECT_ID}.svc.id.goog[cbci/cjoc]" \
   workshop-controllers@${PROJECT_ID}.iam.gserviceaccount.com
 
-chmod +x kustomize-wrapper.sh
-helm upgrade --install cbci cloudbees/cloudbees-core \
-  --wait --debug \
-  --set OperationsCenter.HostName=$CBCI_HOSTNAME \
-  --set OperationsCenter.Ingress.tls.Host=$CBCI_HOSTNAME \
-  --namespace=$NAMESPACE  --create-namespace \
-  --set-file 'OperationsCenter.ExtraGroovyConfiguration.z-quickstart-hook\.groovy'=./config/groovy-license-activated/z-quickstart-hook.groovy \
-  --values ./helm/cbci.yml --post-renderer ./kustomize-wrapper.sh
-
-cd controllers
-
 gcloud iam service-accounts add-iam-policy-binding \
   --role roles/iam.workloadIdentityUser \
   --member "serviceAccount:${PROJECT_ID}.svc.id.goog[controllers/jenkins]" \
   workshop-controllers@${PROJECT_ID}.iam.gserviceaccount.com
+
+cd controllers
 
 chmod +x kustomize-wrapper.sh
 kubectl apply -f ./resources/controllers-namespace.yaml
@@ -121,5 +112,15 @@ helm upgrade --install controllers cloudbees/cloudbees-core \
   --wait \
   --set OperationsCenter.HostName=$CBCI_HOSTNAME \
   --set OperationsCenter.Ingress.tls.Host=$CBCI_HOSTNAME \
-  --namespace='controllers'  \
+  --namespace='controllers' --create-namespace \
   --values ./helm/controllers-values.yml --post-renderer ./kustomize-wrapper.sh
+
+cd ..
+chmod +x kustomize-wrapper.sh
+helm upgrade --install cbci cloudbees/cloudbees-core \
+  --wait --debug \
+  --set OperationsCenter.HostName=$CBCI_HOSTNAME \
+  --set OperationsCenter.Ingress.tls.Host=$CBCI_HOSTNAME \
+  --namespace=$NAMESPACE --create-namespace \
+  --set-file 'OperationsCenter.ExtraGroovyConfiguration.z-quickstart-hook\.groovy'=./config/groovy-license-activated/z-quickstart-hook.groovy \
+  --values ./helm/cbci.yml --post-renderer ./kustomize-wrapper.sh
