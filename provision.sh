@@ -1,11 +1,12 @@
 # Example: ./provision.sh -p core-workshop -h staging -n cbci -c casc-gitops-pink
-# prod example: ./provision.sh -p core-workshop -h production -n cbci -c casc-gitops-lime
+# prod example: ./provision.sh -p core-workshop -h production -n cbci -c casc-gitops-lime -t cbci-casc-tls
 
 
 PROJECT_ID=core-workshop
 DEPLOY_ENV=staging
 NAMESPACE=cbci
 CLUSTER_NAME=casc-gitops-blue
+CBCI_TLS_SECRET_NAME=cbci-tls
 
 while getopts ":p:h:n:c:" option; do
    case $option in
@@ -17,6 +18,8 @@ while getopts ":p:h:n:c:" option; do
          NAMESPACE=${OPTARG};;
       c) # GKE cluster name
          CLUSTER_NAME=${OPTARG};;
+      t) # GKE cluster name
+         CBCI_TLS_SECRET_NAME=${OPTARG};;
      \?) # Invalid option
          echo "Error: Invalid option"
          exit;;
@@ -113,6 +116,7 @@ helm upgrade --install controllers cloudbees/cloudbees-core \
   --wait \
   --set OperationsCenter.HostName=$CBCI_HOSTNAME \
   --set OperationsCenter.Ingress.tls.Host=$CBCI_HOSTNAME \
+  --set OperationsCenter.Ingress.tls.Secretname=$CBCI_TLS_SECRET_NAME \
   --namespace='controllers' --create-namespace \
   --values ./helm/controllers-values.yml --post-renderer ./kustomize-wrapper.sh
 
@@ -122,6 +126,7 @@ helm upgrade --install cbci cloudbees/cloudbees-core \
   --wait \
   --set OperationsCenter.HostName=$CBCI_HOSTNAME \
   --set OperationsCenter.Ingress.tls.Host=$CBCI_HOSTNAME \
+  --set OperationsCenter.Ingress.tls.Secretname=$CBCI_TLS_SECRET_NAME \
   --namespace=$NAMESPACE --create-namespace \
   --set-file 'OperationsCenter.ExtraGroovyConfiguration.z-quickstart-hook\.groovy'=./config/groovy-license-activated/z-quickstart-hook.groovy \
   --values ./helm/cbci.yml --post-renderer ./kustomize-wrapper.sh
