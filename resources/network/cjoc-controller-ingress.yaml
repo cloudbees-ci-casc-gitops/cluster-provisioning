@@ -11,13 +11,13 @@ spec:
           tenant: operations-ops
     - podSelector:
         matchLabels:
-          tenant: operations-ops
+          jenkins: agent
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: controllers
       podSelector:
         matchLabels:
-          com.cloudbees.cje.type: master
+          type: master
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: controllers
