@@ -118,7 +118,7 @@ helm upgrade --install controllers cloudbees/cloudbees-core \
 cd ..
 chmod +x kustomize-wrapper.sh
 helm upgrade --install cbci cloudbees/cloudbees-core \
-  --wait --debug \
+  --wait \
   --set OperationsCenter.HostName=$CBCI_HOSTNAME \
   --set OperationsCenter.Ingress.tls.Host=$CBCI_HOSTNAME \
   --namespace=$NAMESPACE --create-namespace \
