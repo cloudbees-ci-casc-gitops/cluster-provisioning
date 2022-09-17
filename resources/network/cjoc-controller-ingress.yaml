@@ -11,19 +11,16 @@ spec:
           com.cloudbees.cje.type: master
     - podSelector:
         matchLabels:
-          cloudbees.com/master: operations-ops
-    - podSelector:
-        matchLabels:
-          app: smee-client
+          tenant: operations-ops
     - namespaceSelector:
         matchLabels:
-          com.cloudbees.ci.type: controller
+          kubernetes.io/metadata.name: controllers
       podSelector:
         matchLabels:
           com.cloudbees.cje.type: master
     - namespaceSelector:
         matchLabels:
-          com.cloudbees.ci.type: controller
+          kubernetes.io/metadata.name: controllers
       podSelector:
         matchLabels:
           app: "managed-master-hibernation-monitor"

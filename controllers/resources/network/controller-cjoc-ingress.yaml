@@ -19,13 +19,13 @@ spec:
           kubernetes.io/metadata.name: cbci
       podSelector:
         matchLabels:
-          app.kubernetes.io/instance: cbci
+          app.kubernetes.io/component: cjoc
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: cbci
       podSelector:
         matchLabels:
-          cloudbees.com/master: operations-ops
+          tenant: operations-ops
     ports:
     - port: http
       protocol: TCP
