@@ -42,7 +42,7 @@ DNS_ZONE=cloudbees-ci-cb-sa
 echo "CBCI_HOSTNAME = $CBCI_HOSTNAME"
 
 echo "getting credentials"
-gcloud container clusters get-credentials $CLUSTER_NAME --project $PROJECT_ID
+gcloud container clusters get-credentials $CLUSTER_NAME --project $PROJECT_ID --region us-east1
 echo "deleting controller namespace"
 kubectl delete namespace controllers
 echo "deleting $NAMESPACE namespace"
