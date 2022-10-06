@@ -8,7 +8,7 @@ NAMESPACE=cbci
 CLUSTER_NAME=casc-gitops-blue
 CBCI_TLS_SECRET_NAME=cbci-tls
 
-while getopts ":p:h:n:c:" option; do
+while getopts ":p:h:n:c:t:" option; do
    case $option in
       p) # gcp project id
          PROJECT_ID=${OPTARG};;
