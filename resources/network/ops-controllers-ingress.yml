@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: cjoc-controller-ingress
+  namespace: cbci
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: controllers
+      podSelector:
+        matchLabels:
+          type: master
+  podSelector:
+    matchLabels:
+      tenant: operations-ops

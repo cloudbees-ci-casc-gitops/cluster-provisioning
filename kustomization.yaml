@@ -25,6 +25,7 @@ resources:
   - resources/network/cjoc-controller-ingress.yaml
   - resources/network/controller-cjoc-ingress.yaml
   - resources/network/deny-all-ingress.yml
+  - resources/network/ops-controllers-ingress.yml
   - resources/cluster-issuers.yml
   - resources/regional-pd-ssd.yaml
   - resources/cbci-cjoc-secret-provider.yml
